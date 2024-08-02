@@ -47,7 +47,14 @@ class Game
 
   def process_menu_selection(menu_selection)
     new_game if menu_selection == 1
-    choose_game if menu_selection == 2
+    if menu_selection == 2
+      if Dir.empty? 'saves'
+        puts 'There are no saved games.'.bold.brown
+        menu
+      else
+        choose_game
+      end
+    end
     return unless menu_selection == 3
 
     display_info
