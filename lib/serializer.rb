@@ -17,18 +17,18 @@ module Serializer
 
   def save_game(game)
     filename = filename_prompt
-    Dir.mkdir 'chess/saves' unless Dir.exist? 'chess/saves'
-    File.open("chess/saves/#{filename}.yaml", 'w') { |file| file.write YAML.dump(game) }
+    Dir.mkdir 'saves' unless Dir.exist? 'saves'
+    File.open("saves/#{filename}.yaml", 'w') { |file| file.write YAML.dump(game) }
     puts "Your game, '#{filename}', has been saved."
   end
 
   def choose_game
     puts '- [#] Game name'
-    saved_games = Dir.glob('chess/saves/*.*')
+    saved_games = Dir.glob('saves/*.*')
     saved_games.each_with_index do |filename, index|
-      puts "- [#{index + 1}] #{filename.delete_prefix('chess/saves/').delete_suffix('.yaml')}"
+      puts "- [#{index + 1}] #{filename.delete_prefix('saves/').delete_suffix('.yaml')}"
     end
-    print "Enter 'exit' the # of the game you would like to play: "
+    print "Enter 'exit' or the # of the game you would like to play: "
     validate_game_choice(gets.chomp, saved_games)
   end
 
